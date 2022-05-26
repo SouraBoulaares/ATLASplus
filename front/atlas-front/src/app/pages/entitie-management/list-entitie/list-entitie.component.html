@@ -1,0 +1,456 @@
+<p-confirmDialog
+  [style]="{ width: '50vw' }"
+  [baseZIndex]="10000"
+></p-confirmDialog>
+<h4
+  style="
+    background: #e7e8e8;
+    padding: 10px 10px 10px 10px !important;
+    font-size: 20px !important;
+    color: #222b45;
+    margin-left: 10px;
+  "
+  class="printTitle"
+>
+  Configurer les entites et les services
+</h4>
+<div
+  class="card printCardZone"
+  style="margin: auto; border-color: #e7e8e8 !important; border: solid"
+>
+  <p-table
+    #dt
+    [value]="listentities"
+    dataKey="entitieId"
+    styleClass="p-datatable-customers"
+    [rowHover]="true"
+    [showCurrentPageReport]="true"
+    [loading]="loading"
+    currentPageReportTemplate=""
+    [filterDelay]="0"
+    [globalFilterFields]="[
+      'entitieName',
+      'entitieOwner',
+      'entitieVendor',
+      'entitieCategory',
+      'entitieType',
+      'entitieDescription',
+      'createdAt',
+      'updatedAt'
+    ]"
+    [(selection)]="selectedEntities"
+  >
+    <ng-template pTemplate="caption">
+      <div>
+        <div
+          class="p-d-flex p-ai-center p-jc-between"
+          style="width: 60%; display: inline-block"
+        >
+          <span class="p-input-icon-left" style="width: 100%">
+            <i class="pi pi-search hiddenPrintZone"></i>
+            <input
+              pInputText
+              type="text"
+              style="margin-left: 5%; width: 93%"
+              class="searchInput, p-inputtext hiddenPrintZone"
+              (input)="dt.filterGlobal($event.target.value, 'contains')"
+              placeholder="Chercher une entité.."
+            />
+          </span>
+        </div>
+
+        <div style="float: right">
+          <button
+            style="margin-right: 7px"
+            pButton
+            pRipple
+            label="Importer une entité"
+            icon="pi pi-file-excel"
+            class="primaryBtn hiddenPrintZone"
+            (click)="showImportWindow()"
+          ></button>
+
+          <button
+            style="margin-right: 7px"
+            pButton
+            pRipple
+            label="Ajouter une entité"
+            icon="pi pi-plus"
+            class="primaryBtn hiddenPrintZone"
+            (click)="AddEntity()"
+          ></button>
+        </div>
+      </div>
+    </ng-template>
+    <ng-template pTemplate="header">
+      <tr style="text-align: center; font-size: 15px">
+        <th style="width: 3rem"></th>
+        <th style="width: 2rem"></th>
+        <th
+          pSortableColumn="entitieid"
+          style="text-align: center; font-size: 13px; width: 9%"
+        >
+          ID
+        </th>
+        <th
+          pSortableColumn="entitieName"
+          style="text-align: center; font-size: 13px; width: 17%"
+        >
+          Libellé
+        </th>
+        <th
+          pSortableColumn="entitieOwner"
+          style="text-align: center; font-size: 13px; width: 17%"
+        >
+          Propriétaire
+        </th>
+        <th
+          pSortableColumn="entitieVendor"
+          style="text-align: center; font-size: 13px; width: 17%"
+        >
+          Vendeur
+        </th>
+        <th
+          pSortableColumn="entitieCategory"
+          style="text-align: center; font-size: 13px; width: 17%"
+        >
+          Catégorie
+        </th>
+        <th
+          pSortableColumn="entitieType"
+          style="text-align: center; font-size: 13px; width: 17%"
+        >
+          Type
+        </th>
+        <th
+          pSortableColumn="entitieDescription"
+          style="text-align: center; font-size: 13px; width: 11%"
+        >
+          Description
+        </th>
+        <th style="width: 10%; font-size: 13px" class="hiddenPrintZone">
+          Actions
+        </th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-entitie let-expanded="expanded">
+      <tr class="p-selectable-row" style="text-align: center; font-size: 13px">
+        <td>
+          <i
+            *ngIf="!expanded"
+            [pRowToggler]="entitie"
+            class="pi pi-chevron-right"
+          ></i>
+          <i
+            *ngIf="expanded"
+            [pRowToggler]="entitie"
+            class="pi pi-chevron-down"
+          ></i>
+        </td>
+        <td>
+          <p-tableCheckbox [value]="entitie"></p-tableCheckbox>
+        </td>
+        <td style="text-align: center; font-size: 13px">
+          {{ entitie.id }}
+        </td>
+        <td style="text-align: center; font-size: 13px">
+          {{ entitie.entitieName }}
+        </td>
+        <td style="text-align: center; font-size: 13px">
+          {{ entitie.entitieOwner }}
+        </td>
+        <td style="text-align: center; font-size: 13px">
+          {{ entitie.entitieVendor }}
+        </td>
+        <td style="text-align: center; font-size: 13px">
+          {{ entitie.entitieCategory }}
+        </td>
+        <td style="text-align: center">
+          {{ entitie.entitieType }}
+        </td>
+        <td style="text-align: center">
+          <div *ngIf="entitie.entitieDescription != null">
+            <div *ngIf="testValidation(entitie)"></div>
+            <div *ngIf="!testValidation(entitie)">
+              {{ entitie.entitieDescription }}
+            </div>
+          </div>
+        </td>
+
+        <td style="text-align: center" class="hiddenPrintZone">
+          <div>
+            <i
+              placement="top"
+              ngbTooltip="Ajouter un service"
+              class="pi pi-plus"
+              style="margin-right: 7px; color: #3d626f"
+              (click)="addservice(entitie)"
+            ></i>
+            <i
+              placement="top"
+              ngbTooltip="Modifier"
+              class="pi pi-pencil"
+              style="margin-right: 7px; color: #3d626f"
+              (click)="modifierEntitie(entitie)"
+            ></i>
+
+            <i
+              placement="top"
+              ngbTooltip="Supprimer"
+              class="pi pi-trash"
+              style="margin-right: 7px; color: #3d626f"
+              (click)="delEntitie(entitie)"
+            ></i>
+          </div>
+        </td>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="rowexpansion" let-entitie>
+      <tr>
+        <td colspan="10" style="background-color: #3d626f ;">
+          <div class="p-p-3">
+            <p-table [value]="entitie.entitieServices" dataKey="serviceId">
+              <ng-template pTemplate="header">
+                <tr style="text-align: center">
+                  <th style="width: 10%; font-size: 12px; text-align: center">
+                    ID
+                  </th>
+                  <th style="width: 20%; font-size: 12px; text-align: center">
+                    Libellé
+                  </th>
+                  <th style="width: 15%; font-size: 12px; text-align: center">
+                    Type
+                  </th>
+                  <th style="width: 15%; font-size: 12px; text-align: center">
+                    Description
+                  </th>
+
+                  <th style="width: 15%; font-size: 12px; text-align: center">
+                    Sortie
+                  </th>
+                  <th style="width: 15%; font-size: 12px; text-align: center">
+                    Est-il-configurable ?
+                  </th>
+                  <th style="width: 20%; font-size: 12px; text-align: center">
+                    Action
+                  </th>
+                </tr>
+              </ng-template>
+              <ng-template pTemplate="body" let-service>
+                <tr
+                  style="font-size: 12px; text-align: center"
+                  [ngStyle]="{
+                    'background-color': pairOrImpair(serviceId)
+                      ? '#13d3ce'
+                      : '#FFFFFF'
+                  }"
+                >
+                  <td>{{ service.id }}</td>
+                  <td>{{ service.serviceName }}</td>
+                  <td>{{ service.serviceType }}</td>
+                  <td>{{ service.serviceDescription }}</td>
+
+                  <td>
+                    {{ service.serviceOutput.outputDescription }}
+                  </td>
+                  <td>
+                    <div *ngIf="service.serviceIsConfigurable == true">
+                      configurable
+                    </div>
+                    <div *ngIf="service.serviceIsConfigurable == false">
+                      non configurable
+                    </div>
+                  </td>
+
+                  <td style="text-align: center">
+                    <div style="text-align: center">
+                      <i
+                        placement="top"
+                        ngbTooltip="Modifier un service"
+                        class="pi pi-pencil"
+                        style="margin-right: 7px; color: #3d626f"
+                        (click)="ModifyService(service, entitie)"
+                      ></i>
+                      <i
+                        placement="top"
+                        ngbTooltip="Supprimer un service"
+                        class="pi pi-trash"
+                        style="margin-right: 7px; color: #3d626f"
+                        (click)="delService(service)"
+                      ></i>
+                    </div>
+                  </td>
+                </tr>
+              </ng-template>
+              <ng-template pTemplate="emptymessage">
+                <tr style="font-size: 13px">
+                  <td colspan="7" style="text-align: left !important">
+                    Aucun service trouvé pour cette entitie.
+                  </td>
+                </tr>
+              </ng-template>
+            </p-table>
+          </div>
+        </td>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="emptymessage">
+      <tr style="font-size: 13px">
+        <td colspan="16" style="text-align: left !important">
+          Aucune entitie trouvée!
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+</div>
+<p-dialog
+  header="{{ titleHeader }}"
+  [(visible)]="displayaddEntitieModal"
+  [modal]="true"
+  [style]="{ width: '50vw' }"
+  [baseZIndex]="10000"
+  [draggable]="false"
+  [resizable]="false"
+>
+  <br />
+  <ngx-add-new-entitie
+    [entitie]="entitie"
+    [showEntitieWindow]="showEntitieWindow"
+    (cancelEvent)="cancelentitie()"
+    (saveEntitieEvent)="saveEntitieHandler()"
+  >
+  </ngx-add-new-entitie>
+</p-dialog>
+<p-dialog
+  header="{{ titleHeader }}"
+  [(visible)]="displayaddServiceModal"
+  [modal]="true"
+  [style]="{ width: '60vw' }"
+  [baseZIndex]="10000"
+  [draggable]="false"
+  [resizable]="false"
+>
+  <br />
+  <ngx-add-new-service
+    [entitie]="entitie"
+    [serviceEntitie]="serviceEntitie"
+    [showServiceWindow]="showServiceWindow"
+    (cancelEvent)="cancelservice()"
+    (saveServiceEntitieEvent)="saveServiceHandler()"
+  >
+  </ngx-add-new-service>
+</p-dialog>
+<p-dialog
+  header="Supprimer une entitie"
+  [(visible)]="displayDeleteEntitieModal"
+  [modal]="true"
+  [style]="{ width: '50vw' }"
+  [baseZIndex]="10000"
+  [draggable]="false"
+  [resizable]="false"
+>
+  <br />
+  Voulez-vous supprimer l'entitie
+  <span class="customer-badge status-negotiation">{{
+    entitie.entitieName
+  }}</span>
+  ?
+  <ng-template pTemplate="footer">
+    <div style="margin-top: 20px">
+      <button
+        pButton
+        pRipple
+        label="Annuler"
+        icon="pi pi-times"
+        class="p-button-secondary p-mr-2"
+        (click)="displayDeleteEntitieModal = false"
+      ></button>
+
+      <button
+        pButton
+        pRipple
+        label="Valider"
+        icon="pi pi-check"
+        class="p-button-success p-mr-2"
+        (click)="deleteEntitie()"
+      ></button>
+    </div>
+  </ng-template>
+</p-dialog>
+<p-dialog
+  header="Supprimer une service"
+  [(visible)]="displayDeleteServiceModal"
+  [modal]="true"
+  [style]="{ width: '50vw' }"
+  [baseZIndex]="10000"
+  [draggable]="false"
+  [resizable]="false"
+>
+  <br />
+  Voulez-vous supprimer le service
+  <span class="customer-badge status-negotiation">{{
+    serviceEntitie.serviceName
+  }}</span>
+  ?
+  <ng-template pTemplate="footer">
+    <div style="margin-top: 20px">
+      <button
+        pButton
+        pRipple
+        label="Annuler"
+        icon="pi pi-times"
+        class="p-button-secondary p-mr-2"
+        (click)="displayDeleteServiceModal = false"
+      ></button>
+
+      <button
+        pButton
+        pRipple
+        label="Valider"
+        icon="pi pi-check"
+        class="p-button-success p-mr-2"
+        (click)="deleteService()"
+      ></button>
+    </div>
+  </ng-template>
+</p-dialog>
+<p-dialog
+  header="Importer des entities"
+  [(visible)]="displayImporterEntities"
+  [modal]="true"
+  [style]="{ width: '30vw' }"
+  [baseZIndex]="10000"
+  [draggable]="false"
+  [resizable]="false"
+>
+  <br />
+  <div class="row justify-content-center align-items-center">
+    <input
+      id="file-field"
+      name="file-field"
+      (change)="selectFile($event)"
+      type="file"
+      accept=".xml"
+    />
+  </div>
+  <ng-template pTemplate="footer">
+    <div style="margin-top: 20px">
+      <button
+        [disabled]="!showImportButton"
+        pButton
+        pRipple
+        label="Importer"
+        icon="pi pi-check"
+        (click)="importer()"
+        class="primaryBtn"
+      ></button>
+      <button
+        pButton
+        pRipple
+        label="Annuler"
+        icon="pi pi-times"
+        (click)="closeImportWindow()"
+        class="p-button-secondary p-mr-2"
+      ></button></div
+  ></ng-template>
+</p-dialog>

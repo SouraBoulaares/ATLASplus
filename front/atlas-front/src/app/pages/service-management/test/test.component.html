@@ -1,0 +1,1061 @@
+<div *ngIf="testentriesCong">
+  <div>
+    <h4 class="titlePage">Configurer</h4>
+  </div>
+
+  <div
+    class="card"
+    style="
+      margin: auto;
+      margin-top: 3%;
+      border-color: #e7e8e8 !important;
+      border: solid;
+    "
+  >
+    <div style="display: flex">
+      <div class="mb-1 col-md-5 col-12 p-field">
+        <label for="rhRang" class="p-float-label">
+          Type d'entrée <strong style="color: #0b2089"></strong>
+        </label>
+        <div class="p-inputgroup">
+          <span class="p-inputgroup-addon"><i class="pi pi-bars"></i></span>
+
+          <select
+            [(ngModel)]="relation.enterType"
+            class="browser-default custom-select"
+          >
+            <option value="null">Choisir le type de relation</option>
+            <option value="RELATION">Relation</option>
+            <option value="RECETTE">Recette</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="mb-1 col-md-5 col-12 p-field">
+        <label for="rhRang" class="p-float-label">
+          Type de controle <strong style="color: #0b2089"></strong>
+        </label>
+        <div class="p-inputgroup">
+          <span class="p-inputgroup-addon"><i class="pi pi-bars"></i></span>
+
+          <select
+            [(ngModel)]="relation.controlType"
+            (change)="changeControleType(relation.controlType)"
+            class="browser-default custom-select"
+          >
+            <option value="null">Choisir le type de controle</option>
+            <option *ngIf="relation.enterType == 'RELATION'" value="CONTROLE">
+              Controle
+            </option>
+            <option *ngIf="relation.enterType == 'RELATION'" value="SUPPORT">
+              Support
+            </option>
+            <option *ngIf="relation.enterType == 'RELATION'" value="EXTEND">
+              EXTEND
+            </option>
+
+            <option *ngIf="relation.enterType == 'RELATION'" value="DRIVE">
+              DRIVE
+            </option>
+
+            <option
+              *ngIf="relation.enterType == 'RELATION'"
+              value="CONTEST/INTERFER"
+            >
+              CONTEST/INTERFER
+            </option>
+            <option
+              *ngIf="relation.enterType == 'RELATION'"
+              value="REFINE/SUBSUME"
+            >
+              REFINE/SUBSUME
+            </option>
+
+            <option *ngIf="relation.enterType == 'RECETTE'" value="LINEAIRE">
+              Linéaire
+            </option>
+            <option *ngIf="relation.enterType == 'RECETTE'" value="CONDITIONEL">
+              Conditionel
+            </option>
+          </select>
+        </div>
+      </div>
+      <div class="mb-1 col-md-2 col-12 p-field">
+        <button
+          pButton
+          pRipple
+          label="OK"
+          icon="pi pi-check"
+          (click)="verifier()"
+          style="margin-left: 10px; margin-top: 25px"
+        ></button>
+      </div>
+    </div>
+
+    <div
+      *ngIf="
+        relation.controlType == 'CONTROLE' && relation.enterType == 'RELATION'
+      "
+      style="display: flex"
+    >
+      <div class="mb-1 col-md-5 col-12 p-field">
+        <label for="rhRang" class="p-float-label">
+          Nombre d'actions <strong style="color: #0b2089"></strong>
+        </label>
+        <div class="p-inputgroup">
+          <span class="p-inputgroup-addon"><i class="pi pi-bars"></i></span>
+
+          <select
+            [(ngModel)]="relation.nombreAction"
+            class="browser-default custom-select"
+          >
+            <option value="1">1</option>
+            <option value="2">2</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <div
+      *ngIf="
+        relation.controlType == 'CONTEST/INTERFER' &&
+        relation.enterType == 'RELATION'
+      "
+      style="display: flex"
+    >
+      <div class="mb-1 col-md-5 col-12 p-field">
+        <label for="rhRang" class="p-float-label">
+          P: <strong style="color: #0b2089"></strong>
+        </label>
+        <div class="p-inputgroup">
+          <span class="p-inputgroup-addon"><i class="pi pi-bars"></i></span>
+
+          <select
+            [(ngModel)]="relation.p"
+            class="browser-default custom-select"
+          >
+            <option value="LABEL">Libellé</option>
+            <option value="TYPE">Type</option>
+            <option value="CATEGORY">Catégorie</option>
+            <option value="OWNER">Propriétaire</option>
+            <option value="VENDOR">Vendeur</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <div class="row" style="margin: 3%">
+      <div class="col-12" style="text-align: center; margin: auto; width: 100%">
+        <div
+          *ngIf="
+            relation.controlType != 'CONTROLE' &&
+            relation.controlType != 'SUPPORT' &&
+            relation.controlType != 'EXTEND' &&
+            relation.controlType != 'DRIVE' &&
+            relation.controlType != 'CONTEST/INTERFER' &&
+            relation.controlType != 'REFINE/SUBSUME' &&
+            relation.enterType == 'RELATION'
+          "
+          style="text-align: left !important; font-size: 13px"
+        >
+          Aucun type de controle sélectionné
+        </div>
+
+        <p-table
+          *ngIf="
+            (relation.controlType == 'CONTROLE' ||
+              relation.controlType == 'SUPPORT' ||
+              relation.controlType == 'DRIVE' ||
+              relation.controlType == 'REFINE/SUBSUME') &&
+            relation.enterType == 'RELATION'
+          "
+          [value]="lineNumbers"
+        >
+          <ng-template pTemplate="header">
+            <tr>
+              <th
+                *ngIf="relation.nombreAction == 1"
+                style="text-align: center; font-size: 15px; width: 40px"
+              >
+                Actions
+              </th>
+              <th
+                *ngIf="relation.nombreAction == 2"
+                style="text-align: center; font-size: 15px; width: 40px"
+              >
+                Action_1
+              </th>
+              <th
+                *ngIf="relation.nombreAction == 2"
+                style="text-align: center; font-size: 15px; width: 40px"
+              >
+                Action_2
+              </th>
+
+              <th
+                *ngIf="relation.controlType == 'CONTROLE'"
+                style="text-align: center; font-size: 15px; width: 20px"
+              >
+                PRECOND
+              </th>
+              <th
+                *ngIf="relation.controlType == 'DRIVE'"
+                style="text-align: center; font-size: 15px; width: 20px"
+              >
+                INPUT
+              </th>
+              <th
+                *ngIf="
+                  relation.controlType == 'SUPPORT' ||
+                  relation.controlType == 'REFINE/SUBSUME'
+                "
+                style="text-align: center; font-size: 15px; width: 20px"
+              >
+                IF
+              </th>
+              <th style="text-align: center; font-size: 15px; width: 40px">
+                Pré-conditions
+              </th>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-i let-index="rowIndex">
+            <tr>
+              <td style="text-align: center; font-size: 13px">
+                <div class="p-inputgroup" *ngIf="i % 2 === 1">
+                  <select
+                    *ngIf="index + 1 === lineNumber"
+                    [(ngModel)]="selectedActionService"
+                    (change)="onChangeActionService(index, false)"
+                    class="browser-default custom-select"
+                  >
+                    <option value="null">--Please select a servie--</option>
+                    <option
+                      *ngFor="let service of listServices"
+                      [ngValue]="service"
+                    >
+                      {{ service.serviceName }}
+                    </option>
+                  </select>
+                  <select
+                    *ngIf="index + 1 < lineNumber"
+                    [(ngModel)]="allEntriesAction[index]"
+                    (change)="onChangeActionService(index, false)"
+                    class="browser-default custom-select"
+                  >
+                    <option value="null">--Please select a servie--</option>
+                    <option
+                      *ngFor="let service of listServices"
+                      [ngValue]="service"
+                    >
+                      {{ service.serviceName }}
+                    </option>
+                  </select>
+                </div>
+                <div
+                  class="p-inputgroup"
+                  *ngIf="i % 2 === 0 && allEntriesAction[index - 1] != null"
+                >
+                  <select
+                    *ngIf="index + 1 === lineNumber"
+                    [(ngModel)]="selectedActionOperator"
+                    (change)="onChangeActionOperator(false)"
+                    class="browser-default custom-select"
+                  >
+                    <option value="null">--Please select an opérator--</option>
+                    <option value="COR">COR</option>
+                    <option value="CAND">CAND</option>
+                    <option value="CXOR">CXOR</option>
+                    <option value="OR">OR</option>
+                    <option value="AND">AND</option>
+                    <option value="XOR">XOR</option>
+                  </select>
+
+                  <select
+                    *ngIf="index + 1 < lineNumber"
+                    [(ngModel)]="allEntriesAction[index]"
+                    (change)="onChangeActionOperator(false)"
+                    class="browser-default custom-select"
+                  >
+                    <option value="COR">COR</option>
+                    <option value="CAND">CAND</option>
+                    <option value="CXOR">CXOR</option>
+                    <option value="OR">OR</option>
+                    <option value="AND">AND</option>
+                    <option value="XOR">XOR</option>
+                  </select>
+                </div>
+              </td>
+              <!-- for action2-->
+              <td
+                *ngIf="relation.nombreAction == 2"
+                style="text-align: center; font-size: 13px"
+              >
+                <div class="p-inputgroup" *ngIf="i % 2 === 1">
+                  <select
+                    *ngIf="index + 1 === lineNumber"
+                    [(ngModel)]="selectedActionService"
+                    (change)="onChangeActionService(index, true)"
+                    class="browser-default custom-select"
+                  >
+                    <option value="null">--Please select a servie--</option>
+                    <option
+                      *ngFor="let service of listServices"
+                      [ngValue]="service"
+                    >
+                      {{ service.serviceName }}
+                    </option>
+                  </select>
+                  <select
+                    *ngIf="index + 1 < lineNumber"
+                    [(ngModel)]="allEntriesAction2[index]"
+                    (change)="onChangeActionService(index, true)"
+                    class="browser-default custom-select"
+                  >
+                    <option value="null">--Please select a servie--</option>
+                    <option
+                      *ngFor="let service of listServices"
+                      [ngValue]="service"
+                    >
+                      {{ service.serviceName }}
+                    </option>
+                  </select>
+                </div>
+                <div
+                  class="p-inputgroup"
+                  *ngIf="i % 2 === 0 && allEntriesAction2[index - 1] != null"
+                >
+                  <select
+                    *ngIf="
+                      index + 1 === lineNumber &&
+                      allEntriesAction2[index - 1].serviceIsConfigurable == true
+                    "
+                    [(ngModel)]="selectedActionOperator"
+                    (change)="onChangeActionOperator(true)"
+                    class="browser-default custom-select"
+                  >
+                    <option value="null">--Please select an opérator--</option>
+                    <option value="COR">COR</option>
+                    <option value="CAND">CAND</option>
+                    <option value="CXOR">CXOR</option>
+                    <option value="OR">OR</option>
+                    <option value="AND">AND</option>
+                    <option value="XOR">XOR</option>
+                  </select>
+
+                  <select
+                    *ngIf="
+                      index + 1 === lineNumber &&
+                      allEntriesAction2[index - 1].serviceIsConfigurable ==
+                        false
+                    "
+                    [(ngModel)]="selectedActionOperator"
+                    (change)="onChangeActionOperator(true)"
+                    class="browser-default custom-select"
+                  >
+                    <option value="null">--Please select an opérator--</option>
+                    <option value="COR">COR</option>
+                    <option value="CAND">CAND</option>
+                    <option value="CXOR">CXOR</option>
+                    <option value="OR">OR</option>
+                    <option value="AND">AND</option>
+                    <option value="XOR">XOR</option>
+                  </select>
+
+                  <select
+                    *ngIf="
+                      index + 1 < lineNumber &&
+                      allEntriesAction2[index - 1].serviceIsConfigurable == true
+                    "
+                    [(ngModel)]="allEntriesAction2[index]"
+                    (change)="onChangeActionOperator(true)"
+                    class="browser-default custom-select"
+                  >
+                    <option value="null">--Please select an opérator--</option>
+                    <option value="COR">COR</option>
+                    <option value="CAND">CAND</option>
+                    <option value="CXOR">CXOR</option>
+                    <option value="OR">OR</option>
+                    <option value="AND">AND</option>
+                    <option value="XOR">XOR</option>
+                  </select>
+                  <select
+                    *ngIf="
+                      index + 1 < lineNumber &&
+                      allEntriesAction2[index - 1].serviceIsConfigurable ==
+                        false
+                    "
+                    [(ngModel)]="allEntriesAction2[index]"
+                    (change)="onChangeActionOperator(true)"
+                    class="browser-default custom-select"
+                  >
+                    <option value="null">--Please select an opérator--</option>
+                    <option value="COR">COR</option>
+                    <option value="CAND">CAND</option>
+                    <option value="CXOR">CXOR</option>
+                    <option value="OR">OR</option>
+                    <option value="AND">AND</option>
+                    <option value="XOR">XOR</option>
+                  </select>
+                </div>
+              </td>
+              <td></td>
+              <td style="text-align: center; font-size: 13px">
+                <div class="p-inputgroup" *ngIf="i % 2 === 1">
+                  <select
+                    *ngIf="index + 1 === lineNumber"
+                    [(ngModel)]="selectedPreCondService"
+                    (change)="onChangePrecondService()"
+                    class="browser-default custom-select"
+                  >
+                    <option value="null">--Please select a servie--</option>
+                    <option
+                      *ngFor="let service of listServices"
+                      [ngValue]="service"
+                    >
+                      {{ service.serviceName }}
+                    </option>
+                  </select>
+                  <select
+                    *ngIf="index + 1 < lineNumber"
+                    [(ngModel)]="allEntriesPrecond[index]"
+                    (change)="onChangePrecondService()"
+                    class="browser-default custom-select"
+                  >
+                    <option value="null">--Please select a servie--</option>
+                    <option
+                      *ngFor="let service of listServices"
+                      [ngValue]="service"
+                    >
+                      {{ service.serviceName }}
+                    </option>
+                  </select>
+                </div>
+                <div class="p-inputgroup" *ngIf="i % 2 === 0">
+                  <select
+                    *ngIf="index + 1 === lineNumber"
+                    [(ngModel)]="selectedPreCondOperator"
+                    (change)="onChangePrecondOperator()"
+                    class="browser-default custom-select"
+                  >
+                    <option value="null">--Please select an opérator--</option>
+                    <option value="COR">COR</option>
+                    <option value="CAND">CAND</option>
+                    <option value="CXOR">CXOR</option>
+                    <option value="OR">OR</option>
+                    <option value="AND">AND</option>
+                    <option value="XOR">XOR</option>
+                  </select>
+
+                  <select
+                    *ngIf="index + 1 < lineNumber"
+                    [(ngModel)]="allEntriesPrecond[index]"
+                    (change)="onChangePrecondOperator()"
+                    class="browser-default custom-select"
+                  >
+                    <option value="null">--Please select an opérator--</option>
+                    <option value="COR">COR</option>
+                    <option value="CAND">CAND</option>
+                    <option value="CXOR">CXOR</option>
+                    <option value="OR">OR</option>
+                    <option value="AND">AND</option>
+                    <option value="XOR">XOR</option>
+                  </select>
+                </div>
+              </td>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="footer">
+            <tr>
+              <td></td>
+              <td></td>
+              <td *ngIf="relation.nombreAction == 2"></td>
+              <td>
+                <button
+                  pButton
+                  pRipple
+                  label="Valider"
+                  icon="pi pi-check"
+                  (click)="Valider()"
+                ></button>
+              </td>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="emptymessage">
+            <tr>
+              <td
+                colspan="8"
+                style="text-align: left !important; font-size: 13px"
+              >
+                Aucun service trouvée
+              </td>
+            </tr>
+          </ng-template>
+        </p-table>
+
+        <p-table
+          *ngIf="
+            (relation.controlType == 'LINEAIRE' &&
+              relation.enterType == 'RECETTE') ||
+            ((relation.controlType == 'EXTEND' ||
+              relation.controlType == 'CONTEST/INTERFER') &&
+              relation.enterType == 'RELATION')
+          "
+          [value]="lineNumbers"
+        >
+          <ng-template pTemplate="header">
+            <tr>
+              <th style="text-align: center; font-size: 15px; width: 100%">
+                Actions
+              </th>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-index="rowIndex">
+            <tr>
+              <td style="text-align: center; font-size: 13px; width: 100%">
+                <div class="p-inputgroup">
+                  <select
+                    *ngIf="index + 1 === lineNumber"
+                    [(ngModel)]="selectedActionService"
+                    (change)="onChangeActionlineaireService(index)"
+                    class="browser-default custom-select"
+                  >
+                    <option value="null">--Please select a servie--</option>
+                    <option
+                      *ngFor="let service of listServicesLineaire"
+                      [ngValue]="service"
+                    >
+                      <div *ngIf="isString(service)">{{ service }}</div>
+                      <div *ngIf="!isString(service)">
+                        {{ service.serviceName }}
+                      </div>
+                    </option>
+                  </select>
+                  <select
+                    *ngIf="index + 1 < lineNumber"
+                    [(ngModel)]="allEntriesActionLineaire[index]"
+                    (change)="onChangeActionlineaireService(index)"
+                    class="browser-default custom-select"
+                  >
+                    <option value="null">--Please select a servie--</option>
+                    <option
+                      *ngFor="let service of listServicesLineaire"
+                      [ngValue]="service"
+                    >
+                      <div *ngIf="isString(service)">{{ service }}</div>
+                      <div *ngIf="!isString(service)">
+                        {{ service.serviceName }}
+                      </div>
+                    </option>
+                  </select>
+                </div>
+              </td>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="footer">
+            <tr>
+              <td>
+                <label
+                  *ngIf="relation.controlType !== 'EXTEND'"
+                  for="rhRang"
+                  class="p-float-label"
+                >
+                  Select the operator <strong style="color: #0b2089"></strong>
+                </label>
+
+                <div
+                  *ngIf="relation.controlType !== 'EXTEND'"
+                  style="width: 80%; display: inline-block"
+                  class="p-inputgroup"
+                >
+                  <select
+                    *ngIf="recetteConfigurable == true"
+                    [(ngModel)]="selectedPreCondOperator"
+                    class="browser-default custom-select"
+                  >
+                    <option value="null">--Please select an opérator--</option>
+                    <option value=",">,</option>
+                    <option value="COR">COR</option>
+                    <option value="CAND">CAND</option>
+                    <option value="CXOR">CXOR</option>
+                    <option value="OR">OR</option>
+                    <option value="AND">AND</option>
+                    <option value="XOR">XOR</option>
+                  </select>
+                  <select
+                    *ngIf="recetteConfigurable == false"
+                    [(ngModel)]="selectedPreCondOperator"
+                    class="browser-default custom-select"
+                  >
+                    <option value="null">--Please select an opérator--</option>
+                    <option value=",">,</option>
+                    <option value="COR">COR</option>
+                    <option value="CAND">CAND</option>
+                    <option value="CXOR">CXOR</option>
+                    <option value="OR">OR</option>
+                    <option value="AND">AND</option>
+                    <option value="XOR">XOR</option>
+                  </select>
+                </div>
+                <div
+                  style="width: 20%; display: inline-block"
+                  class="p-inputgroup"
+                >
+                  <button
+                    pButton
+                    pRipple
+                    label="Valider"
+                    icon="pi pi-check"
+                    (click)="ValiderLineaire()"
+                  ></button>
+                </div>
+              </td>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="emptymessage">
+            <tr>
+              <td
+                colspan="8"
+                style="text-align: left !important; font-size: 13px"
+              >
+                Aucun service trouvée
+              </td>
+            </tr>
+          </ng-template>
+        </p-table>
+
+        <!-- CONDITIONNEL-->
+
+        <p-table
+          *ngIf="
+            relation.controlType == 'CONDITIONEL' &&
+            relation.enterType == 'RECETTE'
+          "
+          [value]="lineNumbers"
+        >
+          <ng-template pTemplate="header">
+            <tr>
+              <th style="text-align: center; font-size: 15px; width: 40px">
+                Actions
+              </th>
+
+              <th style="text-align: center; font-size: 15px; width: 20px">
+                IF
+              </th>
+
+              <th style="text-align: center; font-size: 15px; width: 40px">
+                Pré-conditions
+              </th>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-i let-index="rowIndex">
+            <tr>
+              <td style="text-align: center; font-size: 13px">
+                <div class="p-inputgroup" *ngIf="i % 2 === 1">
+                  <select
+                    *ngIf="index + 1 === lineNumber"
+                    [(ngModel)]="selectedActionService"
+                    (change)="onChangeActionService(index, false)"
+                    class="browser-default custom-select"
+                  >
+                    <option value="null">--Please select a servie--</option>
+                    <option
+                      *ngFor="let service of listServicesLineaire"
+                      [ngValue]="service"
+                    >
+                      <div *ngIf="isString(service)">{{ service }}</div>
+                      <div *ngIf="!isString(service)">
+                        {{ service.serviceName }}
+                      </div>
+                    </option>
+                  </select>
+                  <select
+                    *ngIf="index + 1 < lineNumber"
+                    [(ngModel)]="allEntriesAction[index]"
+                    (change)="onChangeActionService(index, false)"
+                    class="browser-default custom-select"
+                  >
+                    <option value="null">--Please select a servie--</option>
+                    <option
+                      *ngFor="let service of listServicesLineaire"
+                      [ngValue]="service"
+                    >
+                      <div *ngIf="isString(service)">{{ service }}</div>
+                      <div *ngIf="!isString(service)">
+                        {{ service.serviceName }}
+                      </div>
+                    </option>
+                  </select>
+                </div>
+                <div
+                  class="p-inputgroup"
+                  *ngIf="i % 2 === 0 && allEntriesAction[index - 1] != null"
+                >
+                  <select
+                    *ngIf="index + 1 === lineNumber"
+                    [(ngModel)]="selectedActionOperator"
+                    (change)="onChangeActionOperator(false)"
+                    class="browser-default custom-select"
+                  >
+                    <option value="null">--Please select an opérator--</option>
+                    <option value="COR">COR</option>
+                    <option value="CAND">CAND</option>
+                    <option value="CXOR">CXOR</option>
+                    <option value="OR">OR</option>
+                    <option value="AND">AND</option>
+                    <option value="XOR">XOR</option>
+                  </select>
+
+                  <select
+                    *ngIf="index + 1 < lineNumber"
+                    [(ngModel)]="allEntriesAction[index]"
+                    (change)="onChangeActionOperator(false)"
+                    class="browser-default custom-select"
+                  >
+                    <option value="COR">COR</option>
+                    <option value="CAND">CAND</option>
+                    <option value="CXOR">CXOR</option>
+                    <option value="OR">OR</option>
+                    <option value="AND">AND</option>
+                    <option value="XOR">XOR</option>
+                  </select>
+                </div>
+              </td>
+              <!-- for action2-->
+
+              <td></td>
+              <td style="text-align: center; font-size: 13px">
+                <div class="p-inputgroup" *ngIf="i % 2 === 1">
+                  <select
+                    *ngIf="index + 1 === lineNumber"
+                    [(ngModel)]="selectedPreCondService"
+                    (change)="onChangePrecondService()"
+                    class="browser-default custom-select"
+                  >
+                    <option value="null">--Please select a servie--</option>
+                    <option
+                      *ngFor="let service of listServicesLineaire"
+                      [ngValue]="service"
+                    >
+                      <div *ngIf="isString(service)">{{ service }}</div>
+                      <div *ngIf="!isString(service)">
+                        {{ service.serviceName }}
+                      </div>
+                    </option>
+                  </select>
+                  <select
+                    *ngIf="index + 1 < lineNumber"
+                    [(ngModel)]="allEntriesPrecond[index]"
+                    (change)="onChangePrecondService()"
+                    class="browser-default custom-select"
+                  >
+                    <option value="null">--Please select a servie--</option>
+                    <option
+                      *ngFor="let service of listServicesLineaire"
+                      [ngValue]="service"
+                    >
+                      <div *ngIf="isString(service)">{{ service }}</div>
+                      <div *ngIf="!isString(service)">
+                        {{ service.serviceName }}
+                      </div>
+                    </option>
+                  </select>
+                </div>
+                <div class="p-inputgroup" *ngIf="i % 2 === 0">
+                  <select
+                    *ngIf="index + 1 === lineNumber"
+                    [(ngModel)]="selectedPreCondOperator"
+                    (change)="onChangePrecondOperator()"
+                    class="browser-default custom-select"
+                  >
+                    <option value="null">--Please select an opérator--</option>
+                    <option value="COR">COR</option>
+                    <option value="CAND">CAND</option>
+                    <option value="CXOR">CXOR</option>
+                    <option value="OR">OR</option>
+                    <option value="AND">AND</option>
+                    <option value="XOR">XOR</option>
+                  </select>
+
+                  <select
+                    *ngIf="index + 1 < lineNumber"
+                    [(ngModel)]="allEntriesPrecond[index]"
+                    (change)="onChangePrecondOperator()"
+                    class="browser-default custom-select"
+                  >
+                    <option value="null">--Please select an opérator--</option>
+                    <option value="COR">COR</option>
+                    <option value="CAND">CAND</option>
+                    <option value="CXOR">CXOR</option>
+                    <option value="OR">OR</option>
+                    <option value="AND">AND</option>
+                    <option value="XOR">XOR</option>
+                  </select>
+                </div>
+              </td>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="footer">
+            <tr>
+              <td></td>
+              <td></td>
+
+              <td>
+                <button
+                  pButton
+                  pRipple
+                  label="Valider"
+                  icon="pi pi-check"
+                  (click)="Valider()"
+                ></button>
+              </td>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="emptymessage">
+            <tr>
+              <td
+                colspan="8"
+                style="text-align: left !important; font-size: 13px"
+              >
+                Aucun service trouvée
+              </td>
+            </tr>
+          </ng-template>
+        </p-table>
+      </div>
+    </div>
+
+    <!--result of concatenation-->
+    <div class="row" style="margin: 3%">
+      <div class="col-12" style="text-align: center; margin: auto; width: 100%">
+        <p-table [value]="lineRelations">
+          <ng-template pTemplate="header">
+            <tr>
+              <th style="text-align: center; font-size: 15px; width: 70px">
+                Libellé
+              </th>
+              <th style="text-align: center; font-size: 15px; width: 30px">
+                Actions
+              </th>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-line let-index="rowIndex">
+            <tr>
+              <td style="text-align: center; font-size: 13px">
+                {{ line }}
+              </td>
+
+              <td style="text-align: center; font-size: 13px">
+                <i
+                  placement="top"
+                  ngbTooltip="Supprimer"
+                  class="pi pi-trash"
+                  (click)="deleteRelation(line, index)"
+                ></i>
+              </td>
+            </tr>
+          </ng-template>
+
+          <ng-template pTemplate="emptymessage">
+            <tr>
+              <td style="text-align: left !important; font-size: 13px">
+                Aucune relation trouvée
+              </td>
+            </tr>
+          </ng-template>
+        </p-table>
+      </div>
+    </div>
+    <div style="margin-left: 85%" class="p-grid p-nogutter p-justify-end">
+      <p-button
+        label="Suivant"
+        (onClick)="nextPage()"
+        icon="pi pi-angle-right"
+        iconPos="left"
+      ></p-button>
+    </div>
+    <br /><br />
+  </div>
+</div>
+
+<div *ngIf="preferenceUtilisaturs">
+  <div>
+    <h4 class="titlePage">Ajouter les preferences utilisateurs</h4>
+  </div>
+  <div class="row" style="margin: 3%">
+    <div class="col-12" style="text-align: center; margin: auto; width: 100%">
+      <p-table [value]="preferences">
+        <ng-template pTemplate="header">
+          <tr>
+            <th style="text-align: center; font-size: 15px; width: 70px">
+              Libellé
+            </th>
+            <th style="text-align: center; font-size: 15px; width: 30px">
+              Activer/Desactiver
+            </th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-line let-index="rowIndex">
+          <tr>
+            <td style="text-align: center; font-size: 13px">
+              <div *ngIf="isString(line.preference)">{{ line.preference }}</div>
+              <div *ngIf="!isString(line.preference)">
+                {{ line.preference.serviceName }}
+              </div>
+            </td>
+
+            <td style="text-align: center; font-size: 13px">
+              <div class="p-field-checkbox">
+                <p-checkbox
+                  [(ngModel)]="line.active"
+                  binary="true"
+                  inputId="binary"
+                ></p-checkbox>
+              </div>
+            </td>
+          </tr>
+        </ng-template>
+
+        <ng-template pTemplate="emptymessage">
+          <tr>
+            <td style="text-align: left !important; font-size: 13px">
+              Aucune preference trouvée
+            </td>
+          </tr>
+        </ng-template>
+      </p-table>
+      <br /><br />
+      <!-- <h6> preference des Operateurs</h6>   -->
+      <div style="margin-bottom: 15px">
+        <h4 class="titlePage">Configuration des opérateurs</h4>
+      </div>
+      <div *ngFor="let relation of mapUsedOperators | keyvalue">
+        <div style="font-size: 13px; text-align: left; margin-bottom: 10px">
+          {{ relation.key }}:
+        </div>
+
+        <p-table [value]="relation.value">
+          <ng-template pTemplate="header">
+            <tr>
+              <th style="text-align: center; font-size: 15px; width: 50px">
+                Operateurs
+              </th>
+              <th style="text-align: center; font-size: 15px; width: 50px">
+                equivalent
+              </th>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-line let-index="rowIndex">
+            <tr>
+              <td style="text-align: center; font-size: 13px">
+                {{ line.configOperator }}
+              </td>
+
+              <td style="text-align: center; font-size: 13px">
+                <div class="p-inputgroup">
+                  <select
+                    [(ngModel)]="line.staticOperator"
+                    class="browser-default custom-select"
+                  >
+                    <option value="null">--Please select an opérator--</option>
+                    <option *ngIf="line.configOperator === 'COR'" value="OR">
+                      OR
+                    </option>
+                    <option *ngIf="line.configOperator === 'CAND'" value="AND">
+                      AND
+                    </option>
+                    <option
+                      *ngIf="
+                        line.configOperator === 'CXOR' ||
+                        line.configOperator === 'COR'
+                      "
+                      value="XOR"
+                    >
+                      XOR
+                    </option>
+                    <option
+                      *ngIf="
+                        line.configOperator === 'CAND' ||
+                        line.configOperator === 'CXOR' ||
+                        line.configOperator === 'COR'
+                      "
+                      value="Empty"
+                    >
+                      Null
+                    </option>
+                    <option
+                      *ngIf="
+                        line.configOperator === 'COR' ||
+                        line.configOperator === 'CXOR' ||
+                        line.configOperator === 'COR'
+                      "
+                      value="Séquence"
+                    >
+                      Séquence
+                    </option>
+                    <option
+                      *ngIf="line.configOperator === ','"
+                      value="Séquence"
+                    >
+                      Séquence
+                    </option>
+                  </select>
+                </div>
+              </td>
+            </tr>
+          </ng-template>
+
+          <ng-template pTemplate="emptymessage">
+            <tr>
+              <td style="text-align: left !important; font-size: 13px">
+                Aucune operateurs de preference trouvée
+              </td>
+            </tr>
+          </ng-template>
+        </p-table>
+      </div>
+
+      <div style="margin-left: 85%" class="p-grid p-nogutter p-justify-end">
+        <p-button
+          label="Suivant"
+          (onClick)="resultPage()"
+          icon="pi pi-angle-right"
+          iconPos="left"
+        ></p-button>
+      </div>
+      <br /><br />
+    </div>
+  </div>
+</div>
+<div *ngIf="resultConfig">
+  <div>
+    <h4 class="titlePage">Resultat</h4>
+  </div>
+  <div class="row" style="margin: 3%">
+    <div class="col-12" style="text-align: center; margin: auto; width: 100%">
+      <p-table [value]="finalResultConfigTab">
+        <ng-template pTemplate="header">
+          <tr>
+            <th style="text-align: center; font-size: 15px; width: 100px">
+              Resultat
+            </th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-line let-index="rowIndex">
+          <tr>
+            <td style="text-align: center; font-size: 13px">
+              {{ line }}
+            </td>
+          </tr>
+        </ng-template>
+
+        <ng-template pTemplate="emptymessage">
+          <tr>
+            <td style="text-align: left !important; font-size: 13px">
+              Aucune resultat trouvée
+            </td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </div>
+  </div>
+</div>

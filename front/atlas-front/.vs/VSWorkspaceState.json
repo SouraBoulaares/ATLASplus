@@ -1,0 +1,13 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\src",
+    "\\src\\app",
+    "\\src\\app\\pages",
+    "\\src\\app\\pages\\account-dashbord",
+    "\\src\\app\\pages\\dashboard",
+    "\\src\\app\\pages\\dashboard\\status-card"
+  ],
+  "SelectedNode": "\\angular.json",
+  "PreviewInSolutionExplorer": false
+}

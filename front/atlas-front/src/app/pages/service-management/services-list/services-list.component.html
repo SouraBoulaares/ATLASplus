@@ -1,0 +1,132 @@
+<div>
+    <h4 class="titlePage">
+        La liste de configuation des services
+    </h4>
+  </div>
+  
+  <div class="card" style=" margin: auto;margin-top:3%; border-color:#E7E8E8 !important; border:solid">
+  
+  
+  
+    <p-table #dt [value]="listServices" dataKey="serviceId" styleClass="p-datatable-customers" [rowHover]="true" [rows]="5"
+      [showCurrentPageReport]="true" [rowsPerPageOptions]="[5,10, 15]" [paginator]="true" currentPageReportTemplate=""
+      [filterDelay]="0" [globalFilterFields]="['serviceId','serviceLabel']">
+  
+      <ng-template pTemplate="caption">
+        <div class="p-d-flex p-ai-center p-jc-between" style="width: 100%; display: inline-block">
+          <span class="p-input-icon-left" style="width: 55%">
+            <i class="pi pi-search"></i>
+            <input pInputText type="text" style="width: 93%" class="searchInput, p-inputtext"
+              (input)="dt.filterGlobal($event.target.value, 'contains')" placeholder="Chercher une configuration d'un service .." />
+          </span>
+        </div>
+  
+      </ng-template>
+  
+      <ng-template pTemplate="header">
+        <tr style="text-align: center; font-size: 13px">
+          <th style="text-align: left; font-size: 13px; width: 50%">Libellé d'une service</th>
+          <th style="text-align: center; font-size: 13px; width: 30%">Est-t-il configurable?</th>
+          <th style="width: 20%; font-size: 13px; text-align: center">Action</th>
+        </tr>
+        <tr>
+          <th style="font-size: 13px;">
+            <input style="font-size: 13px;" pInputText type="text" placeholder="Libellé d'un service" class="form-control p-field"
+              [(ngModel)]="service.serviceLabel">
+          </th>
+
+
+          <th style="text-align: center;font-size: 13px;">
+            <div class="p-field-checkbox">
+                <p-checkbox [(ngModel)]="service.serviceIsConfigurable" binary="true" inputId="binary"></p-checkbox>
+            </div>
+            </th>
+
+          <th style="text-align: center">
+            <button pButton placement="top" ngbTooltip="Ajouter une configuation" pRipple icon="pi pi-plus"
+              class="p-button-rounded p-mr-2" style="background-color: #3d626f;
+                           border-color: #3d626f;" [disabled]="checkServiceValid()"
+              [ngClass]="{ disabled: checkServiceValid() }" (click)="saveService()"></button>
+          </th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-service>
+        <tr class="p-selectable-row"  [pSelectableRow]="service" name="service"
+          id="serviceId">
+  
+  
+          <td pEditableColumn style="text-align: left !important; font-size: 13px">
+            <p-cellEditor>
+              <ng-template pTemplate="input">
+                <input style="font-size: 13px;" pInputText type="text" placeholder="Wortlaut eines Landes"
+                  class="form-control p-field" [(ngModel)]="service.serviceLabel" (change)="editService(service)">
+              </ng-template>
+              <ng-template pTemplate="output">
+                {{service.serviceLabel}}
+              </ng-template>
+            </p-cellEditor>
+          </td>
+  
+
+          
+          <td pEditableColumn style="text-align: center !important; font-size: 13px">
+            <p-cellEditor>
+              <ng-template pTemplate="input">
+                <p-checkbox [(ngModel)]="service.serviceIsConfigurable" binary="true" inputId="binary" (onChange)="editService(service)"></p-checkbox>
+
+              </ng-template>
+              
+              <ng-template pTemplate="output">
+                <div *ngIf="service.serviceIsConfigurable==true">
+                  configurable
+                </div>
+                <div *ngIf="service.serviceIsConfigurable==false">
+                  non configurable
+                </div>
+              </ng-template>
+           
+           
+             
+            </p-cellEditor>
+          </td>
+
+     
+          <td style="text-align: center">
+  
+            <i placement="top" ngbTooltip="Supprimer" class="pi pi-trash" (click)="deleteService(service)"></i>
+  
+          </td>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="emptymessage">
+        <tr style="font-size: 13px">
+          <td colspan="8" style="text-align: left !important">
+            aucun configuation trouvée !
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+
+
+
+
+
+  <p-dialog header="Supprimer une configuration?" [(visible)]="displayDeleteService" [modal]="true" [style]="{width: '50vw'}"
+[baseZIndex]="10000" [draggable]="false" [resizable]="false">
+
+<br>
+ulez-vous toujours supprimer la configuration <span class="customer-badge status-negotiation"
+  *ngIf="serviceSelected">{{serviceSelected.serviceLabel}}</span> ?
+
+<ng-template pTemplate="footer">
+  <div style="margin-top: 20px;">
+    <button pButton pRipple label="Annuler" icon="pi pi-times"class="p-button-secondary btn-cancel-color"
+      (click)="displayDeleteService=false"></button>
+
+    <button pButton pRipple label="Supprimer" icon="pi pi-check" class="p-button-danger btn-color"
+      (click)="delService()"></button>
+
+  </div>
+</ng-template>
+</p-dialog>

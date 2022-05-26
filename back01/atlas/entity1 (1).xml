@@ -1,0 +1,57 @@
+<Entity>
+		<Descriptive_Metadata>
+			<ID*>ATE1</ID>
+			<Name*>Door</Name>
+			<Owner>AtlasGroup</Owner>
+			<Vendor>Bosch</Vendor>
+			<Category>Hardware</Category>
+			<Type>Built-In</Type>
+			<Description>Coffee Maker to prepare coffee at the touch of a button. </Description>
+		</Descriptive_Metadata>
+		<Resource_Service>   
+ <!-- l'ensemble des services de l'entité -->
+			<Service id="1">  			
+ <!-- on va utiliser le nom le service dans les relations et les recettes-->
+				<Name>Set Brew Strength</Name>				
+ <!-- type de service action, report ou condition ceci definit la nature de l'output-->
+ <!-- report: output valeur numérique -->
+ <!-- condition; teste si la codition est vrai ou non output true or false-->
+ <!-- Action; output true or false si l'action est réalisé ou non -->
+				<Type>Action|report|condition</Type>
+				<Description>Set the required strength to brew your coffee</Description>
+				<Keywords>
+					<Keyword>Breakfast</Keyword>
+					<Keyword>Coffee</Keyword>
+					<Keyword>Brew</Keyword>
+				</Keywords>
+				<Inputs>
+					<Input id="1">
+						<type>int</type>
+						<description>Input_Strength</description>
+					</Input>
+				</Inputs>
+				<output>
+				 <!-- type de l'output : void(rien), string, integer, floating, boolean -->
+				<type>void</type>
+				<description></description>
+				</output>
+			</Service>
+			<Service id="2">
+				<Name>Turn off</Name>
+				<AppCategory>Automation</AppCategory>
+				<Type>Action</Type>
+				<Description>Turning off Coffee Brewer</Description>
+				<Keywords>
+					<Keyword>Off</Keyword>
+					<Keyword>Turn</Keyword>
+					<Keyword>run</Keyword>
+				</Keywords>
+				<output> <!-- type de l'output : void(rien), string, integer, floating, boolean -->
+				<type>void</type> 
+				<description></description>
+				</output>
+				
+				
+			</Service>
+		</Resource_Service>
+	</Entity>

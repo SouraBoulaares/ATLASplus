@@ -1,0 +1,298 @@
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:400,600,700&display=swap');
+
+// themes - our custom or/and out of the box themes
+@import 'themes';
+
+// framework component themes (styles tied to theme variables)
+@import '~@nebular/theme/styles/globals';
+//@import '~@nebular/auth/styles/all';
+
+@import '~bootstrap/scss/functions';
+@import '~bootstrap/scss/variables';
+@import '~bootstrap/scss/mixins';
+@import '~bootstrap/scss/grid';
+
+// loading progress bar theme
+@import './pace.theme';
+
+@import './layout';
+@import './overrides';
+
+// install the framework and custom global styles
+@include nb-install() {
+
+  // framework global styles
+  @include nb-theme-global();
+ // @include nb-auth-global();
+
+  @include ngx-layout();
+  // loading progress bar
+  @include ngx-pace-theme();
+
+  @include nb-overrides();
+};
+
+.user-name {
+  color: #3d626f;
+}
+.control-item {
+  color: #3d626f;
+}
+.menu-item a {
+  font-family: Roboto, sans-serif !important;
+  font-size: 0.8125rem;
+  font-weight: 400 !important;
+  line-height: 1.5rem;
+  padding: 0.75rem 1rem;
+
+}
+
+.menu-item a.active {
+  background-color: rgba(0, 0, 0, 0.08) !important;
+  color: #6200ee !important;
+}
+
+.menu-item a.active .menu-icon {
+  color: #6200ee !important;
+}
+
+.p-tabview .p-tabview-nav li.p-highlight .p-tabview-nav-link {
+  background: #ffffff;
+  border-color: #6200ee;
+  color: #6200ee;
+}
+
+.p-button-label {
+font-size: 15px !important;
+}
+
+td {
+  text-align: center !important;
+}
+i {
+cursor: pointer;
+}
+label {
+font-size: 13px !important;
+}
+textarea {
+  font-size: 13px !important;
+}
+
+.disabled {
+  cursor: not-allowed !important;
+}
+.disabledPrimary {
+  background-color: #6300ee34 !important;
+  border: #6300ee34 !important;
+  color:white !important;
+  display: inline-block !important;
+    font-weight: 400 !important;
+    vertical-align: middle !important;
+    -webkit-user-select: none !important;
+    user-select: none !important;
+    padding: 0.375rem 0.75rem !important;
+    font-size: 1rem !important;
+    line-height: 1.5 !important;
+    border-radius: 0.25rem !important;
+    transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out !important;
+}
+
+.p-dialog  {
+  //width: 35% !important;;
+}
+
+input {
+  font-size: 13px !important;
+}
+
+.primaryBtn {
+  background-color: #6200ee !important;
+  border: #6200ee !important;
+  color:white !important;
+
+  display: inline-block !important;
+    font-weight: 400 !important;
+    vertical-align: middle !important;
+    -webkit-user-select: none !important;
+    user-select: none !important;
+    padding: 0.375rem 0.75rem !important;
+    font-size: 1rem !important;
+    line-height: 1.5 !important;
+    border-radius: 0.25rem !important;
+    transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out !important;
+}
+
+.p-dialog .p-dialog-header {
+  background: #E7E8E8 !important;
+}
+
+.p-button .p-button-icon-left {
+  font-size: 13px !important;
+}
+
+.customer-badge {
+  border-radius: 2px;
+  padding: .25em .5em;
+  text-transform: uppercase;
+  font-weight: 700;
+  font-size: 11px;
+  letter-spacing: .3px;
+  &.status-active {
+      background-color: #C8E6C9;
+      color: #256029;
+  }
+  &.status-label {
+      background-color: #c5d1e4;
+      color: #2289a0;
+  }
+  &.status-blocked {
+      background-color: #FFCDD2;
+      color: #C63737;
+  }
+  &.status-negotiation {
+      background-color: #FEEDAF;
+      color: #8A5340;
+  }
+  &.status-new {
+      background-color: #B3E5FC;
+      color: #23547B;
+  }
+  &.status-renewal {
+      background-color: #ECCFFF;
+      color: #694382;
+  }
+  &.status-progress {
+      background-color: #FFD8B2;
+      color: #805B36;
+  }
+}
+
+i {
+  color: #3d626f;
+}
+nb-auth-block {
+  max-width: 100% !important;
+}
+
+ngx-login nb-layout-column {
+  padding: 0 0 0 0 !important;
+  overflow:  hidden !important;
+}
+select {
+  font-size: 13px  !important;
+}
+
+.p-datatable .p-datatable-tbody > tr > td {
+  text-align: left;
+  border: 1px solid #e9ecef;
+  border-width: 0 0 1px 0;
+  padding: 0.5rem 1rem !important;
+}
+
+.p-paginator {
+  background: #ffffff;
+  color: #6c757d;
+  border: solid #e9ecef;
+  border-width: 0;
+  padding: 0rem 0rem !important;
+  border-radius: 3px;
+}
+
+.invoiceLine {
+   font-size: 16px !important
+}
+.invoiceLineFooter {
+  font-size: 13px !important
+}
+
+
+@media print {
+  nb-menu, nb-layout-header , nb-select , nb-option , nb-option-list { display: none !important; }
+  .hiddenPrintZone {
+    display: none !important;
+  }
+
+  .hideHeaderFooter {
+    visibility: hidden;
+  }
+  .printZone { display: block;
+    width: 100% !important; height: 97% !important;
+    position: absolute !important;
+    left: 0 !important;
+    top: 0 !important;
+  }
+  .printTitle { display: block;
+    position: absolute !important;
+    left: 0 !important;
+    top: 0 !important;
+  }
+  .printCardZone { display: block;
+    width: 100% !important;
+    position: absolute !important;
+    top:50px !important;
+    left: 0 !important;
+    font-size:12 px !important;
+  }
+  .hideToolTipPrint { display: none !important;}
+  .background-print-white {
+    -webkit-print-color-adjust:exact !important;
+    background-color: #ffffff !important;
+  }
+}
+
+@media print {
+  nb-card {
+    border: none !important;
+  }
+  .tooltip { visibility: hidden; }
+
+  nb-card-footer {
+    border-top: 1.75px solid black !important;
+  }
+}
+
+
+p-multiSelect {
+  font-size: 13px !important;
+}
+.p-multiselect-label {
+  cursor: pointer;
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 13px !important;
+}
+
+.p-calendar {
+    width: 100% !important;
+}
+h4 {
+  font-family: 'Roboto' !important;
+}
+  p-chart > div:nth-of-type(1) {
+    width: 100% !important;
+    text-align: center;
+  }
+
+.nb-theme-default nb-menu .menu-item a {
+  color: white !important;
+  border-radius: 0;
+  font-size: 14px;
+}
+.nb-theme-default nb-menu .menu-item .menu-icon {
+  color:  white !important;
+}
+.nb-theme-default nb-sidebar.compacted nb-menu .menu-item a.active::before {
+  background: #d98c66;
+}
+
+td tr div span {
+  font-family: 'Roboto';
+  font-size: 13px;
+
+}
+.iti {
+  width: 100% !important;
+}

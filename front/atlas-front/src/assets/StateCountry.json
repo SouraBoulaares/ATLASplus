@@ -1,0 +1,296 @@
+ [
+  {"id": "1", "label": "Baden-Württemberg",
+     "city" : [
+    { "id": "1", "label": "Aalen"},
+    { "id": "2", "label": "Baden-Baden"},
+    { "id": "3", "label": "Biberach an der Riß"},
+    { "id": "4", "label": "Esslingen am Neckar"},
+    { "id": "5", "label": "Freiburg im Breisgau"},
+    { "id": "6", "label": "Friedrichshafen"},
+    { "id": "7", "label": "Heidelberg"},
+    { "id": "8", "label": "Heidenheim an der Brenz"},
+    { "id": "9", "label": "Biberach an der Riß"},
+    { "id": "10", "label": "Heilbronn"},
+    { "id": "11", "label": "Karlsruhe"},
+    { "id": "12", "label": "Konstanz"},
+    { "id": "13", "label": "Ludwigsburg"},
+    { "id": "14", "label": "Lörrach"},
+    { "id": "15", "label": "Mannheim"},
+    { "id": "16", "label": "Offenburg"},
+    { "id": "17", "label": "Pforzheim"},
+    { "id": "18", "label": "Reutlingen"},
+    { "id": "19", "label": "Schwäbisch Gmünd"},
+
+    { "id": "20", "label": "Sindelfingen"},
+    { "id": "21", "label": "Stuttgart"},
+    { "id": "22", "label": "Tübingen"},
+    { "id": "23", "label": "Ulm"},
+    { "id": "24", "label": "Villingen-Schwenningen"}
+
+  ]
+  },
+  {"id": "2", "label": "Bayern",
+    "city" : [
+        { "id": "1", "label": "Amberg"},
+        { "id": "2", "label": "Ansbach"},
+        { "id": "3", "label": "Aschaffenburg"},
+        { "id": "4", "label": "Augsburg"},
+        { "id": "5", "label": "Bamberg"},
+        { "id": "6", "label": "Bayreuth"},
+        { "id": "7", "label": "Coburg"},
+        { "id": "8", "label": "Erlangen"},
+        { "id": "9", "label": "Fürth"},
+        { "id": "10", "label": "Gräfelfing"},
+        { "id": "11", "label": "Hof"},
+
+        { "id": "12", "label": "Ingolstadt"},
+        { "id": "13", "label": "Kaufbeuren"},
+        { "id": "14", "label": "Kempten (Allgäu)"},
+        { "id": "15", "label": "Landsberg am Lech"},
+        { "id": "16", "label": "Landshut"},
+        { "id": "17", "label": "Lindau (Bodensee)"},
+        { "id": "18", "label": "Memmingen"},
+        { "id": "19", "label": "München"},
+    
+        { "id": "20", "label": "Neu-Ulm"},
+        { "id": "21", "label": "Neustadt bei Coburg"},
+        { "id": "22", "label": "Nürnberg"},
+        { "id": "23", "label": "Passau"},
+        { "id": "24", "label": "Regensburg"},
+        { "id": "25", "label": "Rosenheim"},
+    
+        { "id": "26", "label": "Schwabach"},
+        { "id": "27", "label": "Schweinfurt"},
+        { "id": "28", "label": "Straubing"},
+        { "id": "29", "label": "Weiden in der Oberpfalz"},
+        { "id": "30", "label": "Würzburg"}
+    
+    ]
+  },
+  {"id": "3", "label": "Berlin",
+    "city" : [
+      { "id": "1", "label": "Berlin"}
+    ]
+  },
+
+
+  {"id": "4", "label": "Brandenburg",
+    "city" : [
+    { "id": "1", "label": "Brandenburg an der Havel"},
+    { "id": "2", "label": "Cottbus"},
+    { "id": "3", "label": "Eberswalde"},
+    { "id": "4", "label": "Eisenhüttenstadt"},
+    { "id": "5", "label": "Erkner"},
+    { "id": "6", "label": "Falkensee"},
+    { "id": "7", "label": "Forst (Lausitz)"},
+    { "id": "8", "label": "Frankfurt (Oder)"},
+    { "id": "9", "label": "Hennigsdorf"},
+    { "id": "10", "label": "Neuenhagen bei Berlin"},
+    { "id": "11", "label": "Neuruppin"},
+    { "id": "12", "label": "Oranienburg"},
+    { "id": "13", "label": "Potsdam"},
+    { "id": "14", "label": "Schwedt/Oder"},
+    { "id": "15", "label": "Teltow"},
+    { "id": "16", "label": "Velten"},
+    { "id": "17", "label": "Pforzheim"}
+    ]
+  },
+  {"id": "5", "label": "Bremen",
+    "city" : [
+      { "id": "1", "label": "Bremen"},
+      { "id": "2", "label": "Bremerhaven"}
+
+    ]
+  },
+  {"id": "6", "label": "Hamburg",
+    "city" : [
+      { "id": "1", "label": "Hamburg"}
+    ]
+  },
+  {"id": "7", "label": "Hessen",
+    "city" : [
+      { "id": "1", "label": "Baunatal"},
+      { "id": "2", "label": "Darmstadt"},
+      { "id": "3", "label": "Frankfurt am Main"},
+      { "id": "4", "label": "Fulda"},
+      { "id": "5", "label": "Gießen"},
+      { "id": "6", "label": "Hanau"},
+      { "id": "7", "label": "Kassel"},
+      { "id": "8", "label": "Marburg"},
+      { "id": "9", "label": "Offenbach am Main"},
+      { "id": "10", "label": "Wiesbaden"}
+      
+    ]
+  },
+  {"id": "8", "label": "Mecklenburg-Vorpommern",
+    "city" : [
+        { "id": "1", "label": "Greifswald"},
+        { "id": "2", "label": "Neubrandenburg"},
+        { "id": "3", "label": "Rostock"},
+        { "id": "4", "label": "Sassnitz"},
+        { "id": "5", "label": "Schwerin"},
+        { "id": "6", "label": "Teterow"},
+        { "id": "7", "label": "Wismar"},
+        { "id": "8", "label": "Wolgast"},
+        { "id": "9", "label": "Offenbach am Main"},
+        { "id": "10", "label": "Wiesbaden"}
+    ]
+  },
+  {"id": "9", "label": "Niedersachsen",
+    "city" : [
+        { "id": "1", "label": "Braunschweig"},
+        { "id": "2", "label": "Celle"},
+        { "id": "3", "label": "Delmenhorst"},
+        { "id": "4", "label": "Emden"},
+        { "id": "5", "label": "Goslar"},
+        { "id": "6", "label": "Göttingen"},
+        { "id": "7", "label": "Hameln"},
+        { "id": "8", "label": "Hannover"},
+        { "id": "9", "label": "Hildesheim"},
+        { "id": "10", "label": "Lüneburg"},
+
+        { "id": "11", "label": "Neustadt am Rübenberge"},
+        { "id": "12", "label": "Oldenburg"},
+        { "id": "13", "label": "Osnabrück"},
+        { "id": "14", "label": "Salzgitter"},
+        { "id": "15", "label": "Wilhelmshaven"},
+        { "id": "16", "label": "Wolfsburg"}
+
+    ]
+  }, 
+  {"id": "10", "label": "Nordrhein-Westfalen",
+    "city" : [
+        { "id": "1", "label": "Aachen"},
+        { "id": "2", "label": "Bielefeld"},
+        { "id": "3", "label": "Bocholt"},
+        { "id": "4", "label": "Bochum"},
+        { "id": "5", "label": "Bonn"},
+        { "id": "6", "label": "Bottrop"},
+        { "id": "7", "label": "Castrop-Rauxel"},
+        { "id": "8", "label": "Dortmund"},
+        { "id": "9", "label": "Duisburg"},
+        { "id": "10", "label": "Düren"},
+
+        { "id": "11", "label": "Düsseldorf"},
+        { "id": "12", "label": "Essen"},
+        { "id": "13", "label": "Gelsenkirchen"},
+        { "id": "14", "label": "Gladbeck"},
+        { "id": "15", "label": "Gütersloh"},
+        { "id": "16", "label": "Hagen"},
+        { "id": "17", "label": "Hamm"},
+        { "id": "18", "label": "Herford"},
+        { "id": "19", "label": "Herne"},
+        { "id": "20", "label": "Iserlohn"},
+
+        { "id": "21", "label": "Krefeld"},
+        { "id": "22", "label": "Köln"},
+        { "id": "23", "label": "Leverkusen"},
+        { "id": "24", "label": "Mönchengladbach"},
+        { "id": "25", "label": "Mülheim an der Ruhr"},
+        { "id": "26", "label": "Münster"},
+        { "id": "27", "label": "Neuss"},
+        { "id": "28", "label": "Oberhausen"},
+        { "id": "29", "label": "Recklinghausen"},
+        { "id": "30", "label": "Remscheid"},
+
+        { "id": "31", "label": "Siegen"},
+        { "id": "32", "label": "Solingen"},
+        { "id": "33", "label": "Viersen"},
+        { "id": "34", "label": "Witten"},
+        { "id": "35", "label": "Wuppertal"}
+    ]
+  },
+  {"id": "11", "label": "Rheinland-Pfalz",
+    "city" : [
+        { "id": "1", "label": "Bad Kreuznach"},
+        { "id": "2", "label": "Frankenthal (Pfalz)"},
+        { "id": "3", "label": "Kaiserslautern"},
+        { "id": "4", "label": "Koblenz"},
+        { "id": "5", "label": "Landau in der Pfalz"},
+        { "id": "6", "label": "Ludwigshafen am Rhein"},
+        { "id": "7", "label": "Mainz"},
+        { "id": "8", "label": "Neustadt an der Weinstraße"},
+        { "id": "9", "label": "Neuwied"},
+        { "id": "10", "label": "Pirmasens"},
+
+        { "id": "11", "label": "Speyer  "},
+        { "id": "12", "label": "Trier"},
+        { "id": "13", "label": "Worms"},
+        { "id": "14", "label": "Zweibrücken"}
+       
+    ]
+  },
+  {"id": "12", "label": "Saarland",
+    "city" : [
+      { "id": "1", "label": "Saarbrücken"}
+    ]
+  },
+  {"id": "13", "label": "Sachsen",
+    "city" : [
+        { "id": "1", "label": "Annaberg-Buchholz "},
+        { "id": "2", "label": "Auerbach/Vogtland"},
+        { "id": "3", "label": "Bautzen"},
+        { "id": "4", "label": "Chemnitz"},
+        { "id": "5", "label": "Delitzsch"},
+        { "id": "6", "label": "Dresden "},
+        { "id": "7", "label": "Freiberg"},
+        { "id": "8", "label": "Glauchau"},
+        { "id": "9", "label": "Kamenz"},
+        { "id": "10", "label": "Leipzig"},
+
+        { "id": "11", "label": "Limbach-Oberfrohna  "},
+        { "id": "12", "label": "Pirna"},
+        { "id": "13", "label": "Plauen"},
+        { "id": "14", "label": "Riesa"} ,
+
+        { "id": "15", "label": "Taucha"},
+        { "id": "12", "label": "Zwickau"}
+         ]
+  },
+  {"id": "14", "label": "Sachsen-Anhalt",
+    "city" : [
+      { "id": "1", "label": "Dessau-Roßlau"},
+      { "id": "2", "label": "Halberstadt"},
+      { "id": "3", "label": "Halle (Saale)"},
+      { "id": "4", "label": "Magdeburg"},
+      { "id": "5", "label": "Quedlinburg"},
+      { "id": "6", "label": "Stendal"},
+      { "id": "7", "label": "Wittenberg"}
+    ]
+  },
+  {"id": "15", "label": "Schleswig-Holstein",
+    "city" : [
+      { "id": "1", "label": "Flensburg"},
+      { "id": "2", "label": "Kiel"},
+
+      { "id": "3", "label": "Lübeck"},
+
+      { "id": "4", "label": "Neumünster"}
+
+    
+
+    ]
+  },
+  {"id": "16", "label": "Thüringen",
+    "city" : [
+      { "id": "1", "label": "Eisenach"},
+      { "id": "2", "label": "Erfurt"},
+      { "id": "3", "label": "Gera"},
+
+      { "id": "4", "label": "Gotha"},
+
+      { "id": "5", "label": "Jena"},
+
+      { "id": "6", "label": "Mühlhausen/Thüringen"},
+
+      { "id": "7", "label": "Nordhausen"},
+
+      { "id": "8", "label": "Suhl"},
+
+      { "id": "9", "label": "Weimar"}
+
+
+
+    ]
+  }
+]

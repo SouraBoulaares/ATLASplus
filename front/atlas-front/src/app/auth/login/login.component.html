@@ -1,0 +1,66 @@
+<nb-layout>
+  <nb-layout-column>
+<div class="row no-espace">
+  <div class="col-md-5 display-form" >
+    <div class="body-content">
+
+      <div class="logo">
+        <img src="assets/images/logoo.png">
+      </div>
+
+      <div class="content-form">
+        <form id="form1"  (ngSubmit)="onFormSubmit()" role="form" #testForm="ngForm" ngNativeValidate>
+          <div class="form-Login">
+            <h1 class="title"> Einloggen</h1>
+            <p class="paragraphe">Melden Sie sich mit Ihren Daten an, die Sie während Ihrer <br> Regestrierung eingegeben haben </p>
+          </div>
+
+          <div>
+            <div >
+              <label> E-Mail </label>
+              <input class="form-control" type="email" placeholder="name@beispiel.com" required [(ngModel)]="auth.username"
+                     name="email">
+            </div>
+            <div>
+              <label>  Passwort </label>
+              <div class="flex">
+                <input  class="form-control input-wi-icon" [type]="viewPassword ? 'text' : 'password'" placeholder="Passwort eingeben" required [(ngModel)]="auth.userPassword"  name="password" pattern="^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,}$"  title="
+                 Das Passwort muss 8 Zeichen lang sein und muss mindestens einen Großbuchstaben, einen Kleinbuchstaben und eine Ziffer enthalten.">
+                <i class="icon-input"
+                   [ngClass]="{
+                  'ri-eye-close-line': !viewPassword,
+                  'ri-eye-line': viewPassword
+                    }"
+                   (click)="changeViewPassword()"
+                ></i>
+              </div>
+            </div>
+          </div>
+
+          <label class="container"> Eingeloggt bleiben
+            <input type="checkbox">
+            <span class="checkmark"></span>
+          </label>
+
+
+          <button class="primary-btn" type="submit"> Anmelden </button>
+
+
+        </form>
+
+        <app-alert-error *ngIf="showAlertError" [message]="message"></app-alert-error>
+      </div>
+    </div>
+
+  </div>
+  <div class="col-md-7 image-back">
+
+    <div class="footer-div">
+      <p class="p-footer">Taylor Simpson</p>
+      <p class="p-footer">Angthong National Marine Park, Koh Samui, Thailand</p>
+    </div>
+
+  </div>
+</div>
+  </nb-layout-column>
+</nb-layout>

@@ -1,0 +1,400 @@
+<h4
+  *ngIf="serviceEntitie.serviceId == null"
+  style="
+    background: #e7e8e8;
+    padding: 10px 10px 10px 10px !important;
+    font-size: 20px !important;
+    color: #222b45;
+    margin-left: 10px;
+  "
+>
+  Ajouter une nouvelle Service
+</h4>
+<h4 *ngIf="showServiceWindow" style="background: #E7E8E8; 
+padding: 10px 10px 10px 10px !important;
+    font-size: 20px !important;
+    color: #222b45;margin-left: 10px">
+Modifier Service
+</h4>
+<div
+  style="
+    width: 90%;
+    margin: auto;
+    margin-top: 3%;
+    border-color: #e7e8e8 !important;
+  "
+>
+  <p-panel>
+    <div class="p-grid p-fluid">
+      <div style="display: flex">
+        <div  class="mb-1 col-md-6 col-12 p-field">
+          <label for="serviceEntitieid" class="p-float-label">ID  :</label>
+
+          <div class="p-inputgroup">
+            <span class="p-inputgroup-addon"><i class="pi pi-tag"></i></span>
+            <input
+            type="text"
+            class="form-control p-field"
+            id="label"
+            [(ngModel)]="serviceEntitie.id"
+          />
+           
+          </div>
+        </div>
+        <div  class="mb-1 col-md-6 col-12 p-field">
+          <label for="serviceEntitieName" class="p-float-label">Libellé *  :</label>
+
+          <div class="p-inputgroup">
+            <span class="p-inputgroup-addon"><i class="pi pi-tag"></i></span>
+            <input
+            type="text"
+            class="form-control p-field"
+            id="label"
+            [(ngModel)]="serviceEntitie.serviceName"
+          />
+           
+          </div>
+        </div>
+        
+        
+      </div>
+    </div>
+    
+    <div class="p-grid p-fluid">
+      <div style="display: flex">
+    <div  class="mb-1 col-md-6 col-12">
+      <label for="serviceNameType" class="p-float-label">Type :</label>
+      <div  class="p-inputgroup">
+        <span class="p-inputgroup-addon"><i class="pi pi-tag"></i></span>
+
+        <input
+         
+        type="text"
+        class="form-control p-field"
+        id="serviceEntitieType"
+        [(ngModel)]="serviceEntitie.serviceType"
+      />
+      </div>
+ 
+    </div>
+    <div  class="mb-1 col-md-6 col-12">
+      <label for="serviceNameCategorie" class="p-float-label">Catégorie :</label>
+      <div  class="p-inputgroup">
+        <span class="p-inputgroup-addon"><i class="pi pi-tag"></i></span>
+
+        <input
+         
+        type="text"
+        class="form-control p-field"
+        id="serviceEntitieCatg"
+        [(ngModel)]="serviceEntitie.serviceCategory"
+      />
+      </div>
+ 
+    </div>
+  </div>
+</div>
+
+<div class="p-grid p-fluid">
+  <div style="display: flex">
+    <div  class="mb-1 col-md-6 col-12">
+      <label for="serviceNameCategorie" class="p-float-label">Description :</label>
+      <div  class="p-inputgroup">
+        <span class="p-inputgroup-addon"><i class="pi pi-tag"></i></span>
+
+        <input
+         
+        type="text"
+        class="form-control p-field"
+        id="serviceEntitieCatg"
+        [(ngModel)]="serviceEntitie.serviceDescription"
+      />
+      </div>
+ 
+    </div>
+<div class="mb-1 col-md-6 col-12">
+  <label for="serviceEntitieserviceIsConfigurable" class="p-float-label">Est-il-configurable :</label>
+  <div class="p-field-checkbox">
+    <p-checkbox [(ngModel)]="serviceEntitie.serviceIsConfigurable" binary="true" inputId="binary"></p-checkbox>
+</div>
+</div>
+</div>
+</div>
+    <div class="p-grid p-fluid">
+      <div style="display: flex">
+        
+    <p-table #dt [value]="serviceEntitie.keywords" dataKey="keywordId" styleClass="p-datatable-customers" [rowHover]="true" [rows]="5"
+    [showCurrentPageReport]="true" [rowsPerPageOptions]="[5,10, 15]" [paginator]="true" currentPageReportTemplate=""
+    [filterDelay]="0" [globalFilterFields]="['keywordId','keywordLabel']">
+
+    <ng-template pTemplate="caption">
+      <div class="p-d-flex p-ai-center p-jc-between" style="width: 100%; display: inline-block">
+        <span class="p-input-icon-left" style="width: 55%">
+          <i class="pi pi-search"></i>
+          <input pInputText type="text" style="width: 93%" class="searchInput, p-inputtext"
+            (input)="dt.filterGlobal($event.target.value, 'contains')" placeholder="Chercher mot clé .." />
+        </span>
+      </div>
+
+    </ng-template>
+
+    <ng-template pTemplate="header">
+      <tr style="text-align: center; font-size: 13px">
+        <th style="text-align: left; font-size: 13px; width: 80%">Libellé d'un mot clé</th>
+        <th style="width: 20%"></th>
+      </tr>
+      <tr>
+        <th style="font-size: 13px;width:80%">
+          <input style="font-size: 13px;" pInputText type="text" placeholder="Libellé mot clé" class="form-control p-field"
+            [(ngModel)]="Keyword.keywordLabel">
+        </th>
+
+
+
+        <th style="text-align: center;width: 20%">
+          <button pButton placement="top" ngbTooltip="Ajouter un mot clé" pRipple icon="pi pi-plus"
+            class="p-button-rounded p-mr-2" style="background-color: #3d626f;
+                         border-color: #3d626f;" [disabled]="checkKeywordValid()"
+            [ngClass]="{ disabled: checkKeywordValid() }" (click)="saveKeyword()"></button>
+        </th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-keyword>
+      <tr class="p-selectable-row"  [pSelectableRow]="keyword" name="keyword"
+        id="keywordId">
+
+
+        <td pEditableColumn style="text-align: left !important; font-size: 13px">
+          <p-cellEditor>
+            <ng-template pTemplate="input">
+              <input style="font-size: 13px;" pInputText type="text" placeholder="Libellé mot clé"
+                class="form-control p-field" [(ngModel)]="keyword.keywordLabel">
+            </ng-template>
+            <ng-template pTemplate="output">
+              {{keyword.keywordLabel}}
+            </ng-template>
+          </p-cellEditor>
+        </td>
+
+
+        
+       
+        <td style="text-align: center">
+
+          <i placement="top" ngbTooltip="Supprimer" class="pi pi-trash" (click)="deleteKeyword(keyword)"></i>
+
+        </td>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="emptymessage">
+      <tr style="font-size: 13px">
+        <td colspan="8" style="text-align: left !important">
+          aucun mot clé trouvée !
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+        
+      </div>
+    </div>
+    
+
+    <div class="p-grid p-fluid">
+        <p-table #dt [value]="serviceEntitie.inputs" dataKey="inputId" styleClass="p-datatable-customers" [rowHover]="true" [rows]="5"
+        [showCurrentPageReport]="true" [rowsPerPageOptions]="[5,10, 15]" [paginator]="true" currentPageReportTemplate=""
+        [filterDelay]="0" [globalFilterFields]="['inputId','inputLabel','inputType','inputDescription']">
+    
+        <ng-template pTemplate="caption">
+          <div class="p-d-flex p-ai-center p-jc-between" style="width: 100%; display: inline-block">
+            <span class="p-input-icon-left" style="width: 55%">
+              <i class="pi pi-search"></i>
+              <input pInputText type="text" style="width: 93%" class="searchInput, p-inputtext"
+                (input)="dt.filterGlobal($event.target.value, 'contains')" placeholder="Chercher une entrée .." />
+            </span>
+          </div>
+    
+        </ng-template>
+    
+        <ng-template pTemplate="header">
+          <tr style="text-align: center; font-size: 13px">
+            <th style="text-align: left; font-size: 13px; width: 25%">ID</th>
+            <th style="text-align: left; font-size: 13px; width: 25%">Libellé d'une entrée</th>
+            <th style="text-align: left; font-size: 13px; width: 25%">Type</th>
+            <th style="text-align: left; font-size: 13px; width: 30%">Description</th>
+              <th style="width: 20%"></th>
+          </tr>
+          <tr>
+            <th style="font-size: 13px;">
+              <input style="font-size: 13px;" pInputText type="text" placeholder="ID" class="form-control p-field"
+                [(ngModel)]="input.id">
+            </th>
+            <th style="font-size: 13px;">
+              <input style="font-size: 13px;" pInputText type="text" placeholder="Libellé d'une entrée" class="form-control p-field"
+                [(ngModel)]="input.inputLabel">
+            </th>
+    
+            <th style="font-size: 13px;">
+                <input style="font-size: 13px;" pInputText type="text" placeholder="Type" class="form-control p-field"
+                  [(ngModel)]="input.inputType">
+              </th>
+              <th style="font-size: 13px;">
+                <input style="font-size: 13px;" pInputText type="text" placeholder="Description" class="form-control p-field"
+                  [(ngModel)]="input.inputDescription">
+              </th>
+    
+            <th style="text-align: center">
+              <button pButton placement="top" ngbTooltip="Ajouter une entrée" pRipple icon="pi pi-plus"
+                class="p-button-rounded p-mr-2" style="background-color: #3d626f;
+                             border-color: #3d626f;" [disabled]="checkInputValid()"
+                [ngClass]="{ disabled: checkInputValid() }" (click)="saveInput()"></button>
+            </th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-input>
+          <tr class="p-selectable-row"  [pSelectableRow]="input" name="input"
+            id="inputId">
+            <td pEditableColumn style="text-align: left !important; font-size: 13px">
+              <p-cellEditor>
+                <ng-template pTemplate="input">
+                  <input style="font-size: 13px;" pInputText type="text" placeholder="ID"
+                    class="form-control p-field" [(ngModel)]="input.id" >
+                </ng-template>
+                <ng-template pTemplate="output">
+                  {{input.id}}
+                </ng-template>
+              </p-cellEditor>
+            </td>
+    
+            <td pEditableColumn style="text-align: left !important; font-size: 13px">
+              <p-cellEditor>
+                <ng-template pTemplate="input">
+                  <input style="font-size: 13px;" pInputText type="text" placeholder="Libellé d'une entrée"
+                    class="form-control p-field" [(ngModel)]="input.inputLabel" >
+                </ng-template>
+                <ng-template pTemplate="output">
+                  {{input.inputLabel}}
+                </ng-template>
+              </p-cellEditor>
+            </td>
+    
+            <td pEditableColumn style="text-align: left !important; font-size: 13px">
+                <p-cellEditor>
+                  <ng-template pTemplate="input">
+                    <input style="font-size: 13px;" pInputText type="text" placeholder="Type"
+                      class="form-control p-field" [(ngModel)]="input.inputType" >
+                  </ng-template>
+                  <ng-template pTemplate="output">
+                    {{input.inputType}}
+                  </ng-template>
+                </p-cellEditor>
+              </td>
+              <td pEditableColumn style="text-align: left !important; font-size: 13px">
+                <p-cellEditor>
+                  <ng-template pTemplate="input">
+                    <input style="font-size: 13px;" pInputText type="text" placeholder="Description"
+                      class="form-control p-field" [(ngModel)]="input.inputDescription" >
+                  </ng-template>
+                  <ng-template pTemplate="output">
+                    {{input.inputDescription}}
+                  </ng-template>
+                </p-cellEditor>
+              </td>
+            
+           
+            <td style="text-align: center">
+    
+              <i placement="top" ngbTooltip="Supprimer" class="pi pi-trash" (click)="deleteInput(input)"></i>
+    
+            </td>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="emptymessage">
+          <tr style="font-size: 13px">
+            <td colspan="8" style="text-align: left !important">
+              aucun entrée trouvée !
+            </td>
+          </tr>
+        </ng-template>
+      </p-table>
+            
+    </div>
+    
+    <div class="p-grid p-fluid">
+      <div style="display: flex">
+        <div  class="mb-1 col-md-4 col-12 p-field">
+          <label for="outputserviceEntitieName" class="p-float-label">Libellé  d'une sortie*  :</label>
+
+          <div class="p-inputgroup">
+            <span class="p-inputgroup-addon"><i class="pi pi-tag"></i></span>
+            <input
+            type="text"
+            class="form-control p-field"
+            id="label"
+            [(ngModel)]="serviceEntitie.serviceOutput.outputLabel" 
+          />
+           
+          </div>
+        </div>
+    
+        
+        <div  class="mb-1 col-md-4 col-12">
+          <label for="serviceNameType" class="p-float-label">Type :</label>
+          <div  class="p-inputgroup">
+            <span class="p-inputgroup-addon"><i class="pi pi-tag"></i></span>
+
+            <input
+             
+            type="text"
+            class="form-control p-field"
+            id="serviceEntitieType"
+            [(ngModel)]="serviceEntitie.serviceOutput.outputType"
+          />
+          </div>
+     
+        </div>
+        <div  class="mb-1 col-md-4 col-12 p-field">
+          <label for="outputDescriptionservice" class="p-float-label">Description  :</label>
+
+          <div class="p-inputgroup">
+            <span class="p-inputgroup-addon"><i class="pi pi-tag"></i></span>
+            <input
+            type="text"
+            class="form-control p-field"
+            id="label"
+            [(ngModel)]="serviceEntitie.serviceOutput.outputDescription"
+          />
+           
+          </div>
+        </div>
+      </div>
+    </div>
+    
+
+    </p-panel>
+
+  <div
+    class="p-panel p-panel-header"
+    style="margin-top: 20px; float: right; padding: 2%"
+  >
+    <button 
+      pButton
+      pRipple
+      label="Annuler"
+      icon="pi pi-times"
+      class="btn btn-secondary"
+      (click)="cancel()"
+    ></button>
+
+    <button
+      [disabled]="checkServiceEntitieValid()"
+      [ngClass]="{ disabled: checkServiceEntitieValid() }"
+      pButton
+      pRipple
+      label="Enregistrer"
+      icon="pi pi-check"
+      class="primaryBtn"
+      (click)="saveServiceEntitie()"
+      style="margin-left: 10px"
+    ></button>
+  </div>
+</div>
