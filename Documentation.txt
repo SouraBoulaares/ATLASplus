@@ -1,0 +1,41 @@
+About Altas+ Tool:
+
+
+**In the context of social IoT (SIoT), these object services delete several types of relationships increasing the degree of complexity of their representation. 
+As these object services continue to be more widely available and exponentially growing, one of the main research 
+challenges is to know how to model the variability related to their composition.
+
+**The variability is defined by several choices of composition planes allowing all to achieve the same objective.
+
+**Atlas+ is a new tool for generating composition plans that support variability.
+
+**This tool is based on an architecture composed of modules allowing the configuration of variable planes in a configurable 
+composition reference model so that they can be individualized according to preferences.
+
+Objective of Atlas+ Tool: Realise the configurable IoT composition. 
+                          A new language for the configurable Thing composition.
+
+
+
+
+
+Commends:
+Front
+Dependences / préréquis
+Nodejs 14.16.0
+npm 8.2.0
+angular 9.0.4
+
+commandes:
+npm install
+ng serve
+
+Back
+Dependences / préréquis
+Java 8
+Maven 3.8.2
+
+commandes:
+mvn clean install
+java -jar target/atlas-*.jar
+
